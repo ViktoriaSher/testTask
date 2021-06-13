@@ -16,14 +16,20 @@
         <div class="forCourseDiv">
           <span
             >1
-            {{ !convertTo[nameValute.ID] ? nameValute.CharCode : "RUB" }}</span
+            {{ !convertTo[nameValute.ID] ?   nameValute.CharCode : "RUB" }}</span
           >
           <button v-on:click="overwriteCurrencies(nameValute.ID)">⇄</button>
-          <span>{{ currency(nameValute) }} </span>
+          <span>{{  currency(nameValute) }}   </span>
 
           <span
-            :class="{ dicreaseState: nameValute.Value < nameValute.Previous,  increaseState: nameValute.Value > nameValute.Previous }"
-            > {{ Math.abs((nameValute.Value - nameValute.Previous).toFixed(4))}}</span
+            :class="{
+              dicreaseState: nameValute.Value < nameValute.Previous,
+              increaseState: nameValute.Value > nameValute.Previous,
+            }"
+          >
+            {{
+              Math.abs((nameValute.Value - nameValute.Previous).toFixed(4))
+            }}</span
           >
         </div>
       </li>
@@ -48,10 +54,10 @@ export default {
     currency(el) {
       if (!this.convertTo[el.ID]) {
         let value = el.Value / el.Nominal;
-        return value.toFixed(4) + "RUB";
+        return value.toFixed(4) + ' ' + "RUB";
       } else {
         let value = 1 / (el.Value / el.Nominal);
-        return value.toFixed(4) + el.CharCode;
+        return value.toFixed(4) + ' ' +  el.CharCode;
       }
     },
   },
@@ -141,15 +147,19 @@ export default {
     .dicreaseState {
       float: right;
       color: red;
-      &:before{
-content: '↓';
+      &:before {
+        position: relative;
+        bottom: 1px;
+        content: "↓ ";
       }
     }
     .increaseState {
-       float: right;
+      float: right;
       color: green;
-       &:before{
-content: ' ↑';
+      &:before {
+        position: relative;
+        bottom: 1px;
+        content: " ↑ ";
       }
     }
   }
