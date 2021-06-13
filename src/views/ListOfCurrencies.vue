@@ -22,8 +22,8 @@
           <span>{{ currency(nameValute) }} </span>
 
           <span
-            :class="{ dicreaseState: nameValute.Value < nameValute.Previous }"
-            >↓ {{ -(nameValute.Value - nameValute.Previous).toFixed(4) }}</span
+            :class="{ dicreaseState: nameValute.Value < nameValute.Previous,  increaseState: nameValute.Value > nameValute.Previous }"
+            > {{ Math.abs((nameValute.Value - nameValute.Previous).toFixed(4))}}</span
           >
         </div>
       </li>
@@ -141,6 +141,16 @@ export default {
     .dicreaseState {
       float: right;
       color: red;
+      &:before{
+content: '↓';
+      }
+    }
+    .increaseState {
+       float: right;
+      color: green;
+       &:before{
+content: ' ↑';
+      }
     }
   }
 }
